@@ -1,0 +1,18 @@
+---
+
+ovirt_vm_name: graylog
+ovirt_vm_ip: 10.66.198.161
+ovirt_template: Centos7
+ovirt_vm_cpu_sockets: 4
+ovirt_vm_cpu_cores: 1
+ovirt_vm_cpu_threads: 2
+ovirt_vm_memory: 8GiB
+ovirt_vm_memory_guaranteed: 8GiB
+nginx_template_path: "{{ inventory_dir }}/templates/nginx"
+firewall_firewalld_service_rules:
+  - service: http
+firewall_firewalld_port_rules:
+  - port: 1514/udp
+  - port: 9996/udp
+# Restoring MongoDB Database GrayLog
+restoring_mongobackup_graylog: true
