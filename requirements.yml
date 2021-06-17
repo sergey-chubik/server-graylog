@@ -21,3 +21,6 @@
 - src: git+http://gitlab.ekaterinburg.fsin.uis/ansible/ansible-role-firewall.git
   version: origin/master
   name: firewall
+- src: git+http://gitlab.ekaterinburg.fsin.uis/ansible/ansible-role-zabbix_agent.git
+  version: origin/master
+  name: zabbix_agent
