@@ -14,5 +14,7 @@ firewall_firewalld_service_rules:
 firewall_firewalld_port_rules:
   - port: 1514/udp
   - port: 9996/udp
+  - port: 10050-10051/tcp
+  - port: 161-162/udp
 # Restoring MongoDB Database GrayLog
 restoring_mongobackup_graylog: true

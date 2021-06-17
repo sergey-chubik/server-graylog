@@ -18,7 +18,6 @@
 - name: DEPLOY SERVER GRAYLOG
   hosts: all
   roles:
-    # - update_packages
     - selinux
     - mongodb
     - graylog

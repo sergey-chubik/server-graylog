@@ -1,0 +1,48 @@
+---
+
+- name: RUN CONFIGURE OVIRT ENVIRONMENT
+  hosts: all
+  connection: local
+  pre_tasks:
+    - stat:
+        path: "{{ inventory_dir }}/secrets/vars"
+      connection: local
+      register: secrets_path
+      become: no
+    - include_vars:
+        dir: "{{ secrets_path.stat.path }}"
+      when: secrets_path.stat.exists
+  roles:
+    - ovirt_vm_create
+
+- name: DEPLOY SERVER GRAYLOG
+  hosts: all
+  roles:
+    - update_packages
+    - selinux
+    - mongodb
+    - graylog
+    - nginx
+    - firewall
+    - zabbix_agent
+  tasks:
+    - name: Restoring MongoDB Database GrayLog
+      block:
+        - name: Extract mongobackup into /tmp
+          unarchive:
+            src: "{{ inventory_dir }}/templates/mongodb/mongobackup.tar.gz"
+            dest: /tmp
+
+        - name: Stop service graylog-server
+          service:
+            name: graylog-server
+            state: stopped
+
+        - name: Restore db graylog
+          command: mongorestore --db graylog --drop /tmp/graylog/
+
+        - name: Start service graylog-server
+          service:
+            name: graylog-server
+            state: started
+      when: restoring_mongobackup_graylog | default(false)
