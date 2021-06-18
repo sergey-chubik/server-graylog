@@ -1,6 +1,6 @@
 ---
 
-ovirt_vm_name: test_graylog
+ovirt_vm_name: testgraylog
 ovirt_vm_ip: 10.66.198.179
 ovirt_template: Centos7
 ovirt_vm_cpu_sockets: 4
