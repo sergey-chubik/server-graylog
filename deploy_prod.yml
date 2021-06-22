@@ -45,4 +45,4 @@
           service:
             name: graylog-server
             state: started
-      when: restoring_mongobackup_graylog | default(false)
+      when: restoring_mongobackup_graylog | default(false) and mongodb_package_installed.changed
